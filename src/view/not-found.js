@@ -1,6 +1,6 @@
 function NotFound() {
   return (
-    <pre>404</pre>
+    <pre>404 not found</pre>
   )
 }
 
