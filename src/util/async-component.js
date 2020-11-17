@@ -39,7 +39,6 @@ function AC(props) {
   const {toImport, ...other} = props
   const [component, setComponent] = useState(<Loading {...other} />)
 
-
   useEffect(function() {
     toImport()
       .then(function(res) {
@@ -50,7 +49,7 @@ function AC(props) {
         console.log({err})
         setComponent(<Error {...other} err={err} />)
       })
-  }, [])
+  }, [toImport])
 
   return component
 }
