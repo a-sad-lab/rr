@@ -4,18 +4,22 @@ import {
   Route,
   Redirect
 } from 'react-router-dom'
-// import {AsyncComponent} from './util/AsyncComponent'
-import {forComponent} from './util/async-component'
+import {loadAsyncComponent} from './util/async-component'
 import home from './view/home'
-// import about from './view/about'
-import help from './view/help'
 import notFound from './view/not-found'
 
-// const about = <AC promised={import('./view/about')} />
-// const about = import('./view/about')
-// const abc = <AC promised={import('./view/about')} />
+function loading(props) {
+  console.log('loading', props)
+  return <pre>loading...</pre>
+}
 
-const about = forComponent(() => import('./view/about'))
+function error(props) {
+  console.log('error', props)
+  return <pre>error!</pre>
+}
+
+const about = loadAsyncComponent(() => import('./view/about'), {loading, error})
+const help = loadAsyncComponent(() => import('./view/help'), {loading, error})
 
 function App(props) {
   return (
@@ -24,7 +28,6 @@ function App(props) {
       <Switch>
         <Route exact path='/' component={home} />
         <Redirect exact from='/home' to='/' />
-        {/* component -> ok */}
         <Route exact path='/about' component={about} />
         <Route exact path='/help' component={help} />
         <Route component={notFound} />

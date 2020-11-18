@@ -1,9 +1,11 @@
+import Layout from './layout'
+
 function About(props) {
   console.log('about props', props)
   return (
-    <div>
+    <Layout>
       <pre>about page</pre>
-    </div>
+    </Layout>
   )
 }
 

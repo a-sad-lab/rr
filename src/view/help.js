@@ -1,6 +1,12 @@
+import Layout from './layout'
+
 function Help(props) {
   console.log('help props', props)
-  return <pre>help page</pre>
+  return (
+    <Layout>
+      <pre>help page</pre>
+    </Layout>
+  )
 }
 
 export default Help

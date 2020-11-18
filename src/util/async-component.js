@@ -1,71 +1,53 @@
 import {useState, useEffect} from 'react'
 
-function AsyncComponent(props) {
-  const {promised} = props
-  const [component, setComponent] = useState(<pre>loading......</pre>)
-  console.log(props)
-  useEffect(function() {
-    promised
-      .then(function(res) {
-        console.log({res})
-        setComponent(<pre>loaded!</pre>)
-      })
-      .catch(function(err) {
-        console.log({err})
-        setComponent(<pre>error!</pre>)
-      })
-  }, [promised])
-
-  return component
+function loadingNoop() {
+  return null
 }
 
-function load(promisedConponent) {
-  return function(props) {
-    return <AsyncComponent promised={promisedConponent} {...props} />
-  }
+function errorNoop() {
+  return null
 }
 
-function Loading(props) {
-  console.log('loading props', props)
-  return <pre>loading......</pre>
-}
+function useAsyncComponent(importFn, option = {loading: loadingNoop, error: errorNoop}) {
 
-function Error(props) {
-  console.log('error props', props)
-  return <pre>error</pre>
-}
+  const {loading: Loading, error: Error} = option
 
-function AC(props) {
-  const {toImport, ...other} = props
-  const [component, setComponent] = useState(<Loading {...other} />)
+  const [componentFn, setComponentFn] = useState(function() {
+    return Loading
+  })
 
   useEffect(function() {
-    toImport()
+    importFn()
       .then(function(res) {
-        const Cmp = res.default
-        setComponent(<Cmp {...other} />)
+        const ResolvedComponent = res.default
+        setComponentFn(function() {
+          return function ResolvedComponentWrapper(props) {
+            return <ResolvedComponent {...props} rt={'success'} />
+          }
+        })
       })
       .catch(function(err) {
-        console.log({err})
-        setComponent(<Error {...other} err={err} />)
+        setComponentFn(function() {
+          return function RejectedComponentWrapper(props) {
+            return <Error err={err} {...props} />
+          }
+        })
       })
-  }, [toImport])
+  }, [importFn])
 
-  return component
+  return componentFn
 }
 
-function forComponent(toImport) {
-  return function Component(props) {
-    return <AC toImport={toImport} {...props} />
+function loadAsyncComponent(toImport, option) {
+  return function AsyncComponent(props) {
+    const ComponentFn = useAsyncComponent(toImport, option)
+    return <ComponentFn {...props} />
   }
 }
 
 
 export {
-  load,
-  AsyncComponent,
-  AC,
-  forComponent
+  loadAsyncComponent
 }
 
 
