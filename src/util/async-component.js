@@ -1,5 +1,9 @@
-import {useState, useEffect} from 'react'
+import {
+  useState, useEffect
+} from 'react'
 
+// const cachedAsyncComponentFn = null
+// console.log()
 function loadingNoop() {
   return null
 }
@@ -19,11 +23,13 @@ function useAsyncComponent(importFn, option = {loading: loadingNoop, error: erro
   useEffect(function() {
     importFn()
       .then(function(res) {
-        const ResolvedComponent = res.default
         setComponentFn(function() {
-          return function ResolvedComponentWrapper(props) {
-            return <ResolvedComponent {...props} rt={'success'} />
-          }
+          return res.default
+          // 若需要向返回的函数式组件，传入额外的 props，使用下方策略
+          // const ResolvedComponent = res.default
+          // return function ResolvedComponentWrapper(props) {
+          //   return <ResolvedComponent {...props} rt={'success'} />
+          // }
         })
       })
       .catch(function(err) {
@@ -39,10 +45,13 @@ function useAsyncComponent(importFn, option = {loading: loadingNoop, error: erro
 }
 
 function loadAsyncComponent(toImport, option) {
-  return function AsyncComponent(props) {
+  
+  function AsyncComponent(props) {
     const ComponentFn = useAsyncComponent(toImport, option)
     return <ComponentFn {...props} />
   }
+
+  return AsyncComponent
 }
 
 
