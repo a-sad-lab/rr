@@ -2,7 +2,8 @@ import {
   BrowserRouter,
   Switch,
   Route,
-  Redirect
+  Redirect,
+  // useHistory
 } from 'react-router-dom'
 import {loadAsyncComponent} from './util/async-component'
 import home from './view/home'
