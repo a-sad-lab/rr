@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import {
   BrowserRouter,
   Switch,
@@ -22,7 +23,17 @@ function error(props) {
 const about = loadAsyncComponent(() => import('./view/about'), {loading, error})
 const help = loadAsyncComponent(() => import('./view/help'), {loading, error})
 
-function App(props) {
+function App() {
+
+  // useEffect(function() {
+  //   window.httpJsonp({
+  //     url: 'http://localhost:4001/',
+  //     params: {
+  //       gift: 'cross origin???'
+  //     }
+  //   })
+  // }, [])
+
   return (
     <BrowserRouter>
       {/* <pre>{props.children}</pre> */}

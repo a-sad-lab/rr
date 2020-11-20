@@ -11,7 +11,7 @@ function errorNoop() {
 }
 
 function useAsyncComponent(importFn, option = {loading: loadingNoop, error: errorNoop}) {
-
+  console.log('ac')
   const {loading: Loading, error: Error} = option
 
   const [componentFn, setComponentFn] = useState(function() {
