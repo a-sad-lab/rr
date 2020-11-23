@@ -1,10 +1,8 @@
-import { useEffect } from 'react'
 import {
   BrowserRouter,
   Switch,
   Route,
   Redirect,
-  // useHistory
 } from 'react-router-dom'
 import {loadAsyncComponent} from './util/async-component'
 import home from './view/home'
@@ -24,15 +22,6 @@ const about = loadAsyncComponent(() => import('./view/about'), {loading, error})
 const help = loadAsyncComponent(() => import('./view/help'), {loading, error})
 
 function App() {
-
-  // useEffect(function() {
-  //   window.httpJsonp({
-  //     url: 'http://localhost:4001/',
-  //     params: {
-  //       gift: 'cross origin???'
-  //     }
-  //   })
-  // }, [])
 
   return (
     <BrowserRouter>
