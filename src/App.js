@@ -18,11 +18,12 @@ function error(props) {
   return <pre>error!</pre>
 }
 
-const about = loadAsyncComponent(() => import('./view/about'), {loading, error})
+const about = loadAsyncComponent(() => import('./view/about')/* , {loading, error} */)
 const help = loadAsyncComponent(() => import('./view/help'), {loading, error})
 
 function App() {
-
+  console.log("App.name", App.name)
+  
   return (
     <BrowserRouter>
       {/* <pre>{props.children}</pre> */}
