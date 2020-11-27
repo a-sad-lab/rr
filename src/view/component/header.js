@@ -6,10 +6,11 @@ function Header(props) {
     <header>
       <nav>
         我来组成头部 {JSON.stringify(match)} &nbsp;&nbsp;
-        <NavLink to="/">/</NavLink>&nbsp;
-        <NavLink to="/home">/home</NavLink>&nbsp;
-        <NavLink to="/about">/about</NavLink>&nbsp;
-        <NavLink to="/help">/help</NavLink>
+        <NavLink to="/">/</NavLink>&nbsp;&nbsp;
+        <NavLink to="/home">/home</NavLink>&nbsp;&nbsp;
+        <NavLink to="/about">/about</NavLink>&nbsp;&nbsp;
+        <NavLink to="/help">/help</NavLink>&nbsp;&nbsp;
+        <NavLink to="/support">/support</NavLink>
       </nav>
     </header>
   )
