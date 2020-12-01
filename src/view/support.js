@@ -12,7 +12,7 @@ function Support(props) {
       console.log(`d - setState - ${s}`)
       setS('support support')
     })
-  }, [])
+  }, [s])
 
   console.log(`b - Support returned - ${s}`)
   return (
